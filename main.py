@@ -1,13 +1,16 @@
-from flask import Flask, Response
+from flask import Flask, send_file, render_template
 from qr_generator import generate_qr
 
-app = Flask(__name__)  
+app = Flask(__name__)
 
 @app.route("/")
-def get_qr():
+def index():
+    return render_template('index.html')
 
-    qr_image = generate_qr()
-    return Response(qr_image, mimetype="image/png")
+@app.route("/qr")
+def get_qr():
+    buffer = generate_qr()
+    return send_file(buffer, mimetype='image/png')
 
 if __name__ == "__main__":
-    app.run(debug=True) 
+    app.run(debug=True)

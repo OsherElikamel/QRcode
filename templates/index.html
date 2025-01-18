@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic QR Code</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>Dynamic QR Code</h1>
+    <p>don't be shy, scan me</p>
+    <img id="qr-code" src="/qr" alt="QR Code">
+    
+    <script>
+        setInterval(() => {
+            document.getElementById('qr-code').src = `/qr?timestamp=${new Date().getTime()}`;
+        }, 5000);
+    </script>
+</body>
+</html>

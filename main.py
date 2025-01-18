@@ -1,17 +1,13 @@
-import qrcode
-from datetime import datetime
+from flask import Flask, Response
+from qr_generator import generate_qr
 
-current_date = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+app = Flask(__name__)  
 
-qr = qrcode.QRCode(
-    version=1,  
-    error_correction=qrcode.constants.ERROR_CORRECT_L,  
-    box_size=10,  
-    border=2,  
-)
+@app.route("/")
+def get_qr():
 
-qr.add_data(current_date)
-qr.make(fit=True)
+    qr_image = generate_qr()
+    return Response(qr_image, mimetype="image/png")
 
-img = qr.make_image(fill="black", back_color="white")
-img.save("qrcode.png")
+if __name__ == "__main__":
+    app.run(debug=True) 
